@@ -1,11 +1,10 @@
 {
-  "extends": "angular",
   "env": {
     "es6": true,
-    "browser": true
+    "browser": 1
   },
   "globals": {
-    "angular": true
+    "angular": 1
   },
   "rules": {
     "comma-dangle": 2,

@@ -1,41 +1,42 @@
 const angular = require('angular');
 
-const crudApp = angular.module('crudApp', []);
-const baseUrl = 'http://localhost:8080';
+const pedalApp = angular.module('pedalApp', []);
+const baseUrl = 'http://localhost:5000';
 
-var handleError = function(error) {
-  console.log(error);
+var handleError = function(error, [$log]) {
+  $log(error);
   this.errors = (this.errors || []).push(error);
 };
 
-crudApp.controller('PedalController', [$http, function($http) {
-  this.pedal = [];
-  this.getAll = () => {
+pedalApp.controller('PedalController', function($http) {
+  const vm = this;
+  vm.pedal = [];
+  vm.getAll = () => {
     $http.get(baseUrl + '/api/pedal')
       .then((res) => {
-        this.motor = res.data;
-      }, handleError.bind(this));
+        vm.motor = res.data;
+      }, handleError.bind(vm));
   };
 
-  this.createPedal = () => {
-    $http.post(baseUrl + '/api/pedal', this.newPedal)
+  vm.createPedal = () => {
+    $http.post(baseUrl + '/api/pedal', vm.newPedal)
       .then((res) => {
-        this.pedal.push(res.data);
-        this.newPedal = null;
-      }, handleError.bind(this));
+        vm.pedal.push(res.data);
+        vm.newPedal = null;
+      }, handleError.bind(vm));
   };
 
-  this.updatePedal = (pedal) => {
+  vm.updatePedal = (pedal) => {
     $http.put(baseUrl + '/api/pedal/' + pedal.model, pedal)
       .then(() => {
         pedal.editing = false;
-      }, handleError.bind(this));
+      }, handleError.bind(vm));
   };
 
-  this.removePedal = (pedal) => {
+  vm.removePedal = (pedal) => {
     $http.delete(baseUrl + '/api/pedal/' + pedal.model, pedal)
       .then(() => {
-        this.pedal.splice(this.pedal.indexOf(pedal), 1);
-      }, handleError.bind(this));
+        vm.pedal.splice(vm.pedal.indexOf(pedal), 1);
+      }, handleError.bind(vm));
   };
-}]);
+});

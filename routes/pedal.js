@@ -21,7 +21,6 @@ myRouter.post('/pedal', bodyParser, (req, res) => {
 
 myRouter.put('/pedal/:model', bodyParser, (req, res) => {
   var pedalUpdate = req.body;
-  // delete pedalUpdate._id;
   Pedal.update({ model: req.params.model }, pedalUpdate, (err) => {
     if (err) return res.status(500).send('Server Error');
     res.status(200).send('Update Successful');

@@ -1,41 +1,44 @@
 const angular = require('angular');
 
-const crudApp = angular.module('crudApp', []);
-const baseUrl = 'http://localhost:8080';
+angular.module('motorApp', []);
+const baseUrl = 'http://localhost:5000';
 
-var handleError = function(error) {
-  console.log(error);
+var handleError = function(error, [$log]) {
+  $log(error);
   this.errors = (this.errors || []).push(error);
 };
 
-crudApp.controller('MotorController', [$http, function($http) {
-  this.motor = [];
-  this.getAll = () => {
+angular
+  .module('motorApp')
+  .controller('MotorController', function($http) {
+  const vm = this;
+  vm.motor = [];
+  vm.getAll = () => {
     $http.get(baseUrl + '/api/motor')
       .then((res) => {
-        this.motor = res.data;
-      }, handleError.bind(this));
+        vm.motor = res.data;
+      }, handleError.bind(vm));
   };
 
-  this.createMotor = () => {
-    $http.post(baseUrl + '/api/motor', this.newMotor)
+  vm.createMotor = () => {
+    $http.post(baseUrl + '/api/motor', vm.newMotor)
       .then((res) => {
-        this.motor.push(res.data);
-        this.newMotor = null;
-      }, handleError.bind(this));
+        vm.motor.push(res.data);
+        vm.newMotor = null;
+      }, handleError.bind(vm));
   };
 
-  this.updateMotor = (motor) => {
+  vm.updateMotor = (motor) => {
     $http.put(baseUrl + '/api/motor/' + motor.model, motor)
       .then(() => {
         motor.editing = false;
-      }, handleError.bind(this));
+      }, handleError.bind(vm));
   };
 
-  this.removeMotor = (motor) => {
+  vm.removeMotor = (motor) => {
     $http.delete(baseUrl + '/api/motor/' + motor.model, motor)
       .then(() => {
-        this.motor.splice(this.motor.indexOf(motor), 1);
-      }, handleError.bind(this));
+        vm.motor.splice(vm.motor.indexOf(motor), 1);
+      }, handleError.bind(vm));
   };
-}]);
+});
