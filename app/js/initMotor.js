@@ -1,6 +1,6 @@
 const angular = require('angular');
 
-angular.module('motorApp', []);
+const motorApp = angular.module('motorApp', []);
 const baseUrl = 'http://localhost:5000';
 
 var handleError = function(error, [$log]) {
@@ -8,37 +8,47 @@ var handleError = function(error, [$log]) {
   this.errors = (this.errors || []).push(error);
 };
 
-angular
-  .module('motorApp')
-  .controller('MotorController', function($http) {
-  const vm = this;
-  vm.motor = [];
-  vm.getAll = () => {
+motorApp.controller('MotorController', function($http) {
+  this.motors = [];
+  this.getAll = () => {
     $http.get(baseUrl + '/api/motor')
       .then((res) => {
-        vm.motor = res.data;
-      }, handleError.bind(vm));
+        this.motors = res.data;
+      }, handleError.bind(this));
   };
 
-  vm.createMotor = () => {
-    $http.post(baseUrl + '/api/motor', vm.newMotor)
+  this.createMotor = () => {
+    $http.post(baseUrl + '/api/motor', this.newMotor)
       .then((res) => {
-        vm.motor.push(res.data);
-        vm.newMotor = null;
-      }, handleError.bind(vm));
+        this.motors.push(res.data);
+        this.newMotor = null;
+      }, handleError.bind(this));
   };
 
-  vm.updateMotor = (motor) => {
+  this.updateMotor = (motor) => {
     $http.put(baseUrl + '/api/motor/' + motor.model, motor)
       .then(() => {
         motor.editing = false;
-      }, handleError.bind(vm));
+      }, handleError.bind(this));
   };
 
-  vm.removeMotor = (motor) => {
+  this.removeMotor = (motor) => {
     $http.delete(baseUrl + '/api/motor/' + motor.model, motor)
       .then(() => {
-        vm.motor.splice(vm.motor.indexOf(motor), 1);
-      }, handleError.bind(vm));
+        this.motors.splice(this.motor.indexOf(motor), 1);
+      }, handleError.bind(this));
+  };
+
+  this.backup = (motor) => {
+    motor.backup = angular.copy(motor);
+  };
+
+  this.restoreBackup = (motor) => {
+    angular.copy(motor.backup, motor);
+  };
+
+  this.deleteBakcup = (motor) => {
+    delete motor.backup;
   };
 });
+angular.bootstrap(document.getElementById('motorApp'), ['motorApp']);

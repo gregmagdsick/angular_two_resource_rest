@@ -10,32 +10,32 @@
       <h1>Best Bike Database Ever</h1>
       <article data-ng-app="pedalApp">
         <section data-ng-controller="PedalController as pedalctrl" data-ng-init="pedalctrl.getAll()">
-          <h2>Make New Pedal Bike</h2>
+          <h2>Make New Pedalbike</h2>
           <form data-ng-submit="pedalctrl.createPedal()">
             <label for="model">Model</label>
             <input type="text" name="model" data-ng-model="pedalctrl.newPedal.model">
-            <label for="gears">Gears</label>
+            <label for="gears">Number of Gears</label>
             <input type="number" name="gears" data-ng-model="pedalctrl.newPedal.gears">
             <label for="frameType">Frame Type</label>
             <input type="text" name="frameType" data-ng-model="pedalctrl.newPedal.frameType">
-            <label for="maxSpeed">Max Speed</label>
+            <label for="maxSpeed">Max Speed in MPH</label>
             <input type="number" name="maxSpeed" data-ng-model="pedalctrl.newPedal.maxSpeed">
-            <button data-ng-click="pedalcrl.getAll()" type="Submit">Make Pedal Bike</button>
+            <button data-ng-click="pedalctrl.getAll()" type="Submit">Make Pedalbike</button>
           </form>
-          <h2>Current Pedal Bikes</h2>
+          <h2>Current Pedalbikes</h2>
           <ul id="pedalList">
             <li data-ng-repeat="pedal in pedalctrl.pedals">
-              <span data-ng-if="!pedal.editing">The {{pedal.model}} has: {{pedal.gears}} gears, {{pedal.frameType}} frame and a max speed of {{pedal.maxSpeed}} miles an hour.</span>
+              <span data-ng-if="!pedal.editing">The {{pedal.model}} has: {{pedal.gears}} gears, {{pedal.frameType}} frame and a max speed of {{pedal.maxSpeed}} MPH</span>
               <form data-ng-if="pedal.editing" data-ng-submit="pedalctrl.updatePedal(pedal)">
                 <label for="model">Model</label>
                 <input type="text" name="model" data-ng-model="pedal.model">
-                <label for="gears">Gears</label>
+                <label for="gears">Number of Gears</label>
                 <input type="number" name="gears" data-ng-model="pedal.gears">
                 <label for="frameType">Frame Type</label>
                 <input type="text" name="frameType" data-ng-model="pedal.frameType">
-                <label for="maxSpeed">Max Speed</label>
+                <label for="maxSpeed">Max Speed in MPH</label>
                 <input type="number" name="maxSpeed" data-ng-model="pedal.maxSpeed">
-                <button data-ng-click="pedalctrl.deleteBackup(pedal)" type="submit">Update Pedal Bike</button>
+                <button data-ng-click="pedalctrl.deleteBackup(pedal)" type="submit">Update Bike</button>
                 <button data-ng-click="pedalctrl.restoreBackup(pedal); pedal.editing = false; pedalctrl.getAll()">Cancel</button>
               </form>
 
@@ -45,11 +45,43 @@
           </ul>
         </section>
       </article>
-      <!-- <article data-ng-app="motorApp">
-        <section data-ng-controller="MotorController as motor">
+      <article id="motorApp" data-ng-app="motorApp">
+        <section data-ng-controller="MotorController as motorctrl" data-ng-init"motorctrl.getAll()">
+          <h2>Make new Motorbike</h2>
+          <form data-ng-submit="motorctrl.createMotor()">
+            <label for="model">Model</label>
+            <input type="text" name="model" data-ng-model="motorctrl.newMotor.model">
+            <label for="displacement">Displacement in CCs</label>
+            <input type="number" name="displacement" data-ng-model="motorctrl.newMotor.displacement">
+            <label for="cylinders">Number of cylinders</label>
+            <input type="number" name="cylinders" data-ng-model="motorctrl.newMotor.cylinders">
+            <label for="maxSpeed">Maximum Speed in MPH</label>
+            <input type="number" name="maxSpeed" data-ng-model="motorctrl.newMotor.maxSpeed">
+            <button type="Submit">Make Motorbike</button>
+          </form>
+          <h2>Current Motorbikes</h2>
+          <ul id="motorList">
+            <li data-ng-repeat="motor in motorctrl.motors">
+              <span data-ng-if="!motor.editing">The {{motor.model}} has: a displacement of {{motor.displacement}} CCs, {{motor.cylinders}} cylinders, and a top speed of {{motor.maxSpeed}} MPH</span>
+              <form data-ng-if="motor.editing" data-ng-submit="motorctrl.updateMotor(motor)">
+                <label for="model">Model</label>
+                <input type="text" name="model" data-ng-model="motor.model">
+                <label for="displacement">Displacement in CCs</label>
+                <input type="number" name="displacement" data-ng-model="motor.displacement">
+                <label for="cylinders">Number of cylinders</label>
+                <input type="number" name="cylinders" data-ng-model="motor.cylinders">
+                <label for="maxSpeed">Maximum Speed in MPH</label>
+                <input type="number" name="maxSpeed" data-ng-model="motor.maxSpeed">
+                <button data-ng-click="motorctrl.deleteBakcup(motor)" type="submit">Update Bike</button>
+                <button data-ng-click="motrorctr.restoreBackup(motor); motor.editing=false; motorctrl.getAll()">Cancel</button>
+              </form>
+              <button data-ng-if="!motor.editing" data-ng-click="motor.editing=true; motorctrl.backupMotor(motor)">Edit Bike</button>
+              <button data-ng-click="motorctrl.removeMotor(); motorctrl.getAll()">Remove Bike</button>
+            </li>
 
+          </ul>
         </section>
-      </article> -->
+      </article>
     </main>
     <script src="./bundle.js"></script>
   </body>

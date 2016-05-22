@@ -1,1 +1,2 @@
 require('./initPedal');
+require('./initMotor');
