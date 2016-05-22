@@ -9,34 +9,45 @@ var handleError = function(error, [$log]) {
 };
 
 pedalApp.controller('PedalController', function($http) {
-  const vm = this;
-  vm.pedal = [];
-  vm.getAll = () => {
+  this.pedals = [];
+  this.getAll = () => {
     $http.get(baseUrl + '/api/pedal')
       .then((res) => {
-        vm.motor = res.data;
-      }, handleError.bind(vm));
+        this.pedals = res.data;
+      }, handleError.bind(this));
   };
 
-  vm.createPedal = () => {
-    $http.post(baseUrl + '/api/pedal', vm.newPedal)
+  this.createPedal = () => {
+    $http.post(baseUrl + '/api/pedal', this.newPedal)
       .then((res) => {
-        vm.pedal.push(res.data);
-        vm.newPedal = null;
-      }, handleError.bind(vm));
+        this.pedals.push(res.data);
+        this.newPedal = null;
+      }, handleError.bind(this));
   };
 
-  vm.updatePedal = (pedal) => {
+  this.updatePedal = (pedal) => {
     $http.put(baseUrl + '/api/pedal/' + pedal.model, pedal)
       .then(() => {
         pedal.editing = false;
-      }, handleError.bind(vm));
+      }, handleError.bind(this));
   };
 
-  vm.removePedal = (pedal) => {
-    $http.delete(baseUrl + '/api/pedal/' + pedal.model, pedal)
+  this.removePedal = (pedal) => {
+    $http.delete(baseUrl + '/api/pedal/' + pedal.model)
       .then(() => {
-        vm.pedal.splice(vm.pedal.indexOf(pedal), 1);
-      }, handleError.bind(vm));
+        this.pedals.splice(this.pedal.indexOf(pedal), 1);
+      }, handleError.bind(this));
+  };
+
+  this.backup = (pedal) => {
+    pedal.backup = angular.copy(pedal);
+  };
+
+  this.restoreBackup = (pedal) => {
+    angular.copy(pedal.backup, pedal);
+  };
+
+  this.deleteBakcup = (pedal) => {
+    delete pedal.backup;
   };
 });

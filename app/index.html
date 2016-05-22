@@ -5,51 +5,51 @@
     <title>Angular CRUD Demo</title>
     <link rel="stylesheet" href="/styles/main.css">
   </head>
-  <body data-ng-app="pedalApp">
+  <body>
     <main>
       <h1>Best Bike Database Ever</h1>
-      <article >
-        <section data-ng-controller="PedalController as pedal" data-ng-init="pedal.getAll()">
+      <article data-ng-app="pedalApp">
+        <section data-ng-controller="PedalController as pedalctrl" data-ng-init="pedalctrl.getAll()">
           <h2>Make New Pedal Bike</h2>
-          <form data-ng-submit="pedal.createPedal()">
+          <form data-ng-submit="pedalctrl.createPedal()">
             <label for="model">Model</label>
-            <input type="text" name="model" data-ng-model="pedal.newPedal.model">
+            <input type="text" name="model" data-ng-model="pedalctrl.newPedal.model">
             <label for="gears">Gears</label>
-            <input type="number" name="gears" data-ng-model="pedal.newPedal.gears">
+            <input type="number" name="gears" data-ng-model="pedalctrl.newPedal.gears">
             <label for="frameType">Frame Type</label>
-            <input type="text" name="frameType" data-ng-model="pedal.newPedal.frameType">
+            <input type="text" name="frameType" data-ng-model="pedalctrl.newPedal.frameType">
             <label for="maxSpeed">Max Speed</label>
-            <input type="number" name="maxSpeed" data-ng-model="pedal.newPedal.maxSpeed">
-            <button type="Submit">Make Pedal Bike</button>
+            <input type="number" name="maxSpeed" data-ng-model="pedalctrl.newPedal.maxSpeed">
+            <button data-ng-click="pedalcrl.getAll()" type="Submit">Make Pedal Bike</button>
           </form>
           <h2>Current Pedal Bikes</h2>
           <ul id="pedalList">
-            <li data-ng-repeat="PedalBike in pedal.pedal">
-              <span data-ng-if="!PedalBike.editing">{{PedalBike.model}} has: {{PedalBike.gears}} gears, {{PedalBike.frameType}} frame and a max speed of {{PedalBike.maxSpeed}} miles an hour.</span>
-              <form data-ng-if="PedalBike.editing" data-ng-submit="pedal.updatePedal(PedalBike)">
+            <li data-ng-repeat="pedal in pedalctrl.pedals">
+              <span data-ng-if="!pedal.editing">The {{pedal.model}} has: {{pedal.gears}} gears, {{pedal.frameType}} frame and a max speed of {{pedal.maxSpeed}} miles an hour.</span>
+              <form data-ng-if="pedal.editing" data-ng-submit="pedalctrl.updatePedal(pedal)">
                 <label for="model">Model</label>
-                <input type="text" name="model" data-ng-model="PedalBike.model">
+                <input type="text" name="model" data-ng-model="pedal.model">
                 <label for="gears">Gears</label>
-                <input type="number" name="gears" data-ng-model="PedalBike.gears">
+                <input type="number" name="gears" data-ng-model="pedal.gears">
                 <label for="frameType">Frame Type</label>
-                <input type="text" name="frameType" data-ng-model="PedalBike.frameType">
+                <input type="text" name="frameType" data-ng-model="pedal.frameType">
                 <label for="maxSpeed">Max Speed</label>
-                <input type="number" name="maxSpeed" data-ng-model="PedalBike.maxSpeed">
-                <button type="submit">Update Pedal Bike</button>
-                <button data-ng-click="PedalBike.editing = false">Cancel</button>
+                <input type="number" name="maxSpeed" data-ng-model="pedal.maxSpeed">
+                <button data-ng-click="pedalctrl.deleteBackup(pedal)" type="submit">Update Pedal Bike</button>
+                <button data-ng-click="pedalctrl.restoreBackup(pedal); pedal.editing = false; pedalctrl.getAll()">Cancel</button>
               </form>
 
-              <button data-ng-if="!PedalBike.editing" data-ng-click="PedalBike.editing = true">Edit Bike</button>
-              <button data-ng-click="pedal.remove">Remove Bike</button>
+              <button data-ng-if="!pedal.editing" data-ng-click="pedal.editing = true; pedalctrl.backup(pedal)">Edit Bike</button>
+              <button data-ng-click="pedalctrl.removePedal(pedal); pedalctrl.getAll()">Remove Bike</button>
             </li>
           </ul>
         </section>
       </article>
-      <article data-ng-app="motorApp">
+      <!-- <article data-ng-app="motorApp">
         <section data-ng-controller="MotorController as motor">
 
         </section>
-      </article>
+      </article> -->
     </main>
     <script src="./bundle.js"></script>
   </body>
