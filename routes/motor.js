@@ -13,24 +13,23 @@ myRouter.get('/motor', (req, res) => {
 
 myRouter.post('/motor', bodyParser, (req, res) => {
   var newMotor = new Motor(req.body);
-  newMotor.save((err) => {
+  newMotor.save((err, data) => {
     if (err) return res.status(500).send('Server Error');
-    res.status(200).send('POST to motor successful');
+    res.status(200).json(data);
   });
 });
 
-myRouter.put('/motor/:_id', bodyParser, (req, res) => {
+myRouter.put('/motor/:model', bodyParser, (req, res) => {
   var motorUpdate = req.body;
-  // delete motorUpdate._id;
   Motor.update({ model: req.params.model }, motorUpdate, (err) => {
     if (err) return res.status(500).send('Server Error');
-    res.status(200).send('Update Successful');
+    res.status(200).json({ msg: 'Update Successful' });
   });
 });
 
-myRouter.delete('/motor/:_id', (req, res) => {
+myRouter.delete('/motor/:model', (req, res) => {
   Motor.remove({ model: req.params.model }, (err) => {
     if (err) return res.status(500).send('Server Error');
-    res.status(200).send('Deletion Successful');
+    res.status(200).json({ msg: 'Deletion Successful' });
   });
 });

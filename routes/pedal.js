@@ -13,9 +13,9 @@ myRouter.get('/pedal', (req, res) => {
 
 myRouter.post('/pedal', bodyParser, (req, res) => {
   var newPedal = new Pedal(req.body);
-  newPedal.save((err) => {
+  newPedal.save((err, data) => {
     if (err) return res.status(500).send('Server Error');
-    res.status(200).send('POST to pedal successful');
+    res.status(200).json(data);
   });
 });
 
@@ -23,13 +23,13 @@ myRouter.put('/pedal/:model', bodyParser, (req, res) => {
   var pedalUpdate = req.body;
   Pedal.update({ model: req.params.model }, pedalUpdate, (err) => {
     if (err) return res.status(500).send('Server Error');
-    res.status(200).send('Update Successful');
+    res.status(200).json({ msg: 'Update Successful' });
   });
 });
 
 myRouter.delete('/pedal/:model', (req, res) => {
-  Pedal.remove({ model: req.params.model }, (err) => {
+  Pedal.findOneAndRemove({ model: req.params.model }, (err) => {
     if (err) return res.status(500).send('Server Error');
-    res.status(200).send('Deletion Successful');
+    res.status(200).json({ msg: 'Deletion Successful' });
   });
 });

@@ -10,19 +10,6 @@ var handleError = function(error, [$log]) {
 
 bikeApp.controller('PedalController', ['$http', function($http) {
   this.pedals = [];
-
-  this.backup = (pedal) => {
-    pedal.backup = angular.copy(pedal);
-  };
-
-  this.restoreBackup = (pedal) => {
-    angular.copy(pedal.backup, pedal);
-  };
-
-  this.deleteBakcup = (pedal) => {
-    delete pedal.backup;
-  };
-
   this.getAll = () => {
     $http.get(baseUrl + '/api/pedal')
       .then((res) => {
@@ -48,9 +35,22 @@ bikeApp.controller('PedalController', ['$http', function($http) {
   this.removePedal = (pedal) => {
     $http.delete(baseUrl + '/api/pedal/' + pedal.model)
       .then(() => {
-        this.pedals.splice(this.pedal.indexOf(pedal), 1);
+        this.pedals.splice(this.pedals.indexOf(pedal), 1);
       }, handleError.bind(this));
   };
+
+  this.backup = (pedal) => {
+    pedal.backup = angular.copy(pedal);
+  };
+
+  this.restoreBackup = (pedal) => {
+    angular.copy(pedal.backup, pedal);
+  };
+
+  this.deleteBakcup = (pedal) => {
+    delete pedal.backup;
+  };
+
 }]);
 
 bikeApp.controller('MotorController', ['$http', function($http) {
@@ -80,7 +80,7 @@ bikeApp.controller('MotorController', ['$http', function($http) {
   this.removeMotor = (motor) => {
     $http.delete(baseUrl + '/api/motor/' + motor.model, motor)
       .then(() => {
-        this.motors.splice(this.motor.indexOf(motor), 1);
+        this.motors.splice(this.motors.indexOf(motor), 1);
       }, handleError.bind(this));
   };
 
