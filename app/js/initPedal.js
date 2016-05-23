@@ -8,8 +8,21 @@ var handleError = function(error, [$log]) {
   this.errors = (this.errors || []).push(error);
 };
 
-pedalApp.controller('PedalController', function($http) {
+pedalApp.controller('PedalController', ['$http', function($http) {
   this.pedals = [];
+
+  this.backup = (pedal) => {
+    pedal.backup = angular.copy(pedal);
+  };
+
+  this.restoreBackup = (pedal) => {
+    angular.copy(pedal.backup, pedal);
+  };
+
+  this.deleteBakcup = (pedal) => {
+    delete pedal.backup;
+  };
+
   this.getAll = () => {
     $http.get(baseUrl + '/api/pedal')
       .then((res) => {
@@ -38,16 +51,4 @@ pedalApp.controller('PedalController', function($http) {
         this.pedals.splice(this.pedal.indexOf(pedal), 1);
       }, handleError.bind(this));
   };
-
-  this.backup = (pedal) => {
-    pedal.backup = angular.copy(pedal);
-  };
-
-  this.restoreBackup = (pedal) => {
-    angular.copy(pedal.backup, pedal);
-  };
-
-  this.deleteBakcup = (pedal) => {
-    delete pedal.backup;
-  };
-});
+}]);

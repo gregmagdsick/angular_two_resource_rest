@@ -19,7 +19,7 @@ myRouter.post('/motor', bodyParser, (req, res) => {
   });
 });
 
-myRouter.put('/motor/:model', bodyParser, (req, res) => {
+myRouter.put('/motor/:_id', bodyParser, (req, res) => {
   var motorUpdate = req.body;
   // delete motorUpdate._id;
   Motor.update({ model: req.params.model }, motorUpdate, (err) => {
@@ -28,7 +28,7 @@ myRouter.put('/motor/:model', bodyParser, (req, res) => {
   });
 });
 
-myRouter.delete('/motor/:model', (req, res) => {
+myRouter.delete('/motor/:_id', (req, res) => {
   Motor.remove({ model: req.params.model }, (err) => {
     if (err) return res.status(500).send('Server Error');
     res.status(200).send('Deletion Successful');

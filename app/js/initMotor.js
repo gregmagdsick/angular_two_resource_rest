@@ -8,7 +8,7 @@ var handleError = function(error, [$log]) {
   this.errors = (this.errors || []).push(error);
 };
 
-motorApp.controller('MotorController', function($http) {
+motorApp.controller('MotorController', ['$http', function($http) {
   this.motors = [];
   this.getAll = () => {
     $http.get(baseUrl + '/api/motor')
@@ -50,5 +50,5 @@ motorApp.controller('MotorController', function($http) {
   this.deleteBakcup = (motor) => {
     delete motor.backup;
   };
-});
+}]);
 angular.bootstrap(document.getElementById('motorApp'), ['motorApp']);
