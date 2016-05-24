@@ -1,0 +1,6 @@
+<li>
+  <span data-ng-if="!pedal.editing">The {{ pedal.model }} has: {{ pedal.gears }} gears, {{ pedal.frameType }} frame and a max speed of {{ pedal.maxSpeed }} MPH</span>
+  <ng-transclude></ng-transclude>
+  <button data-ng-if="!pedal.editing" data-ng-click="pedal.editing = true; pedalctrl.backup(pedal)">Edit Bike</button>
+  <button data-ng-click="removePedal(pedal)">Remove Bike</button>
+</li>

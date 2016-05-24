@@ -12,6 +12,7 @@ module.exports = function(app) {
     };
 
     this.createPedal = () => {
+      debugger;
       $http.post(baseUrl + '/api/pedal', this.newPedal)
       .then((res) => {
         this.pedals.push(res.data);

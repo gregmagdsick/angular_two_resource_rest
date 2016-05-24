@@ -11,45 +11,22 @@
       <article>
         <section data-ng-controller="PedalController as pedalctrl" data-ng-init="pedalctrl.getAll()">
           <h2>Make New Pedalbike</h2>
-          <form data-ng-submit="pedalctrl.createPedal()">
-            <label for="model">Model
-              <input type="text" name="model" data-ng-model="pedalctrl.newPedal.model">
-            </label>
-            <label for="gears">Number of Gears
-              <input type="number" name="gears" data-ng-model="pedalctrl.newPedal.gears">
-            </label>
-            <label for="frameType">Frame Type
-              <input type="text" name="frameType" data-ng-model="pedalctrl.newPedal.frameType">
-            </label>
-            <label for="maxSpeed">Max Speed in MPH
-              <input type="number" name="maxSpeed" data-ng-model="pedalctrl.newPedal.maxSpeed">
-            </label>
-            <button type="Submit">Make Pedalbike</button>
-          </form>
+            <pedal-form
+              data-button-text="Make Pedalbike"
+              data-action="create"
+              data-pedal="pedalctrl.newPedal">
+            </pedal-form>
           <h2>Current Pedalbikes</h2>
           <ul id="pedalList">
-            <li data-ng-repeat="pedal in pedalctrl.pedals">
-              <span data-ng-if="!pedal.editing">The {{ pedal.model }} has: {{ pedal.gears }} gears, {{ pedal.frameType }} frame and a max speed of {{ pedal.maxSpeed }} MPH</span>
-              <form data-ng-if="pedal.editing" data-ng-submit="pedalctrl.updatePedal(pedal)">
-                <label for="model">Model
-                  <input type="text" name="model" data-ng-model="pedal.model">
-                </label>
-                <label for="gears">Number of Gears
-                  <input type="number" name="gears" data-ng-model="pedal.gears">
-                </label>
-                <label for="frameType">Frame Type
-                  <input type="text" name="frameType" data-ng-model="pedal.frameType">
-                </label>
-                <label for="maxSpeed">Max Speed in MPH
-                  <input type="number" name="maxSpeed" data-ng-model="pedal.maxSpeed">
-                </label>
-                <button data-ng-click="pedalctrl.deleteBackup(pedal)" type="submit">Update Bike</button>
-                <button data-ng-click="pedalctrl.restoreBackup(pedal); pedal.editing = false">Cancel</button>
-              </form>
-
-              <button data-ng-if="!pedal.editing" data-ng-click="pedal.editing = true; pedalctrl.backup(pedal)">Edit Bike</button>
-              <button data-ng-click="pedalctrl.removePedal(pedal)">Remove Bike</button>
-            </li>
+            <pedal-list-item data-ng-repeat="pedal in pedalctrl.pedals" data-pedal="pedal">
+              <pedal-form
+                data-ng-if="pedal.editing"
+                data-button-text="Update Pedalbike"
+                data-action="update"
+                data-pedal="pedal">
+                <button data-ng-click="pedal.editing = false">Cancel</button>
+              </pedal-form>
+            </pedal-list-item>
           </ul>
         </section>
       </article>

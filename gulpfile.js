@@ -35,7 +35,7 @@ gulp.task('webpack:dev', ['html:dev', 'css:dev'], () => {
 });
 
 gulp.task('html:dev', () => {
-  gulp.src('app/index.html')
+  gulp.src('app/**/*.html')
   .pipe(gulp.dest('./build'));
 });
 
