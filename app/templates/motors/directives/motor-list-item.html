@@ -1,0 +1,6 @@
+<li>
+  <span data-ng-if="!motor.editing">The {{ motor.model }} has: a displacement of {{ motor.displacement }} CCs, {{ motor.cylinders }} cylinders, and a top speed of {{ motor.maxSpeed }} MPH</span>
+  <ng-transclude></ng-transclude>
+  <button data-ng-if="!motor.editing" data-ng-click="motor.editing=true; backup(motor)">Edit Bike</button>
+  <button data-ng-click="removeMotor(motor)">Remove Bike</button>
+</li>
