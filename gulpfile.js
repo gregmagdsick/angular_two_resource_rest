@@ -5,6 +5,7 @@ const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const webpack = require('webpack-stream');
 const KarmaServer = require('karma').Server;
+const sass = require('gulp-sass');
 
 const scripts = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*_test.js', 'models/*.js'];
 
@@ -23,7 +24,7 @@ gulp.task('watch', () => {
   gulp.watch(scripts, ['lint', 'test']);
 });
 
-gulp.task('webpack:dev', ['html:dev', 'css:dev'], () => {
+gulp.task('webpack:dev', ['html:dev', 'scss:dev'], () => {
   gulp.src('app/js/entry.js')
     .pipe(webpack({
       output: {
@@ -60,13 +61,14 @@ gulp.task('karmaTest', (done) => {
 });
 
 gulp.task('html:dev', () => {
-  gulp.src('app/**/*.html')
+  return gulp.src('app/**/*.html')
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('css:dev', () => {
-  gulp.src('app/**/*.css')
-  .pipe(gulp.dest('./build'));
+gulp.task('scss:dev', () => {
+  return gulp.src('app/styles/main.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./build/styles'));
 });
 
 gulp.task('unitTest', ['webpack:unitTest', 'karmaTest']);
