@@ -1,0 +1,16 @@
+<form data-ng-submit="save(motor)">
+  <label for="model">Model
+    <input type="text" name="model" data-ng-model="motor.model">
+  </label>
+  <label for="displacement">Displacement in CCs
+    <input type="number" name="displacement" data-ng-model="motor.displacement">
+  </label>
+  <label for="cylinders">Number of cylinders
+    <input type="number" name="cylinders" data-ng-model="motor.cylinders">
+  </label>
+  <label for="maxSpeed">Maximum Speed in MPH
+    <input type="number" name="maxSpeed" data-ng-model="motor.maxSpeed">
+  </label>
+  <button type="Submit">{{buttonText}}</button>
+  <ng-transclude></ng-transclude>
+</form>

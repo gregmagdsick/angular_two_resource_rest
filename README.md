@@ -24,7 +24,7 @@ In another terminal, type:
 >node static_server.js
 ```
 
-Then, in your browser, navigate to:
+Then, in your web browser, navigate to:
 ```
 localhost:8080
 ```

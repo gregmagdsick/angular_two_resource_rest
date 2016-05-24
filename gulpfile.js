@@ -4,7 +4,8 @@ const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const webpack = require('webpack-stream');
-
+const KarmaServer = require('karma').Server;
+const sass = require('gulp-sass');
 
 const scripts = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*_test.js', 'models/*.js'];
 
@@ -14,8 +15,8 @@ gulp.task('lint', () => {
   .pipe(eslint.format());
 });
 
-gulp.task('test', () => {
-  return gulp.src('test/**/*_test.js')
+gulp.task('server:test', () => {
+  return gulp.src('test/server_test.js')
   .pipe(mocha());
 });
 
@@ -23,8 +24,8 @@ gulp.task('watch', () => {
   gulp.watch(scripts, ['lint', 'test']);
 });
 
-gulp.task('webpack:dev', ['html:dev', 'css:dev'], () => {
-  gulp.src('app/js/init.js')
+gulp.task('webpack:dev', ['html:dev', 'scss:dev'], () => {
+  gulp.src('app/js/entry.js')
     .pipe(webpack({
       output: {
         devtool: 'source-map',
@@ -34,15 +35,42 @@ gulp.task('webpack:dev', ['html:dev', 'css:dev'], () => {
     .pipe(gulp.dest('./build'));
 });
 
+gulp.task('webpack:unitTest', () => {
+  gulp.src('test/unit/test_entry.js')
+    .pipe(webpack({
+      devtool: 'source-map',
+      output: {
+        filename: 'bundle.js'
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.html$/,
+            loader: 'html'
+          }
+        ]
+      }
+    }))
+    .pipe(gulp.dest('./test'));
+});
+
+gulp.task('karmaTest', (done) => {
+  new KarmaServer({
+    configfile: __dirname + './karma.conf.js'
+  }, done).start();
+});
+
 gulp.task('html:dev', () => {
-  gulp.src('app/index.html')
+  return gulp.src('app/**/*.html')
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('css:dev', () => {
-  gulp.src('app/**/*.css')
-  .pipe(gulp.dest('./build'));
+gulp.task('scss:dev', () => {
+  return gulp.src('app/styles/main.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./build/styles'));
 });
 
+gulp.task('unitTest', ['webpack:unitTest', 'karmaTest']);
 gulp.task('build', ['webpack:dev']);
-gulp.task('default', ['lint', 'test']);
+gulp.task('test', ['lint', 'server:test']);
