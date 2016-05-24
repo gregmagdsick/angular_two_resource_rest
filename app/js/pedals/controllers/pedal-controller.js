@@ -12,7 +12,6 @@ module.exports = function(app) {
     };
 
     this.createPedal = () => {
-      debugger;
       $http.post(baseUrl + '/api/pedal', this.newPedal)
       .then((res) => {
         this.pedals.push(res.data);
@@ -35,10 +34,12 @@ module.exports = function(app) {
     };
 
     this.backup = (pedal) => {
+      debugger;
       pedal.backup = angular.copy(pedal);
     };
 
     this.restoreBackup = (pedal) => {
+      debugger;
       angular.copy(pedal.backup, pedal);
     };
 

@@ -3,13 +3,14 @@ module.exports = function(app) {
     return {
       restrict: 'EAC',
       replace: true,
-      require: '^ngcontroller',
+      require: '^ngController',
       transclude: true,
       templateUrl: '/templates/pedals/directives/pedal-list-item.html',
       scope: {
         pedal: '='
       },
       link: function(scope, element, attrs, controller) {
+        scope.backup = controller.backup;
         scope.removePedal = controller.removePedal;
       }
     };

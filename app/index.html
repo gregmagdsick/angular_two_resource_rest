@@ -24,7 +24,7 @@
                 data-button-text="Update Pedalbike"
                 data-action="update"
                 data-pedal="pedal">
-                <button data-ng-click="pedal.editing = false">Cancel</button>
+                <button data-ng-click="pedal.editing = false; pedalctrl.restoreBackup(pedal)">Cancel</button>
               </pedal-form>
             </pedal-list-item>
           </ul>
