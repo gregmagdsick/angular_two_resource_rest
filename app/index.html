@@ -81,9 +81,9 @@
                 <label for="maxSpeed">Maximum Speed in MPH</label>
                 <input type="number" name="maxSpeed" data-ng-model="motor.maxSpeed">
                 <button data-ng-click="motorctrl.deleteBakcup(motor)" type="submit">Update Bike</button>
-                <button data-ng-click="motrorctrl.restoreBackup(motor); motor.editing=false">Cancel</button>
+                <button data-ng-click="motorctrl.restoreBackup(motor); motor.editing=false">Cancel</button>
               </form>
-              <button data-ng-if="!motor.editing" data-ng-click="motor.editing=true; motorctrl.backupMotor(motor)">Edit Bike</button>
+              <button data-ng-if="!motor.editing" data-ng-click="motor.editing=true; motorctrl.backup(motor)">Edit Bike</button>
               <button data-ng-click="motorctrl.removeMotor(motor)">Remove Bike</button>
             </li>
 
