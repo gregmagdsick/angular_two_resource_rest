@@ -24,5 +24,10 @@ In another terminal, type:
 >node static_server.js
 ```
 
+Then, in your web browser, navigate to:
+```
+localhost:8080
+```
+
 ## Acnknowledgements
 I got help with the cancel editing functionality from [Ben Harding](https://github.com/bharding2)

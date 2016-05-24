@@ -24,7 +24,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('webpack:dev', ['html:dev', 'css:dev'], () => {
-  gulp.src('app/js/init.js')
+  gulp.src('app/js/entry.js')
     .pipe(webpack({
       output: {
         devtool: 'source-map',
