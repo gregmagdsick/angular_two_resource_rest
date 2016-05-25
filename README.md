@@ -16,7 +16,7 @@ to build the web client, type:
 to use the client, you need to start the server and the client. Type in one terminal:
 
 ```bash
->node lib/_server.js
+>node api-server.js
 ```
 
 In another terminal, type:

@@ -24,6 +24,24 @@ describe('pedal directive', function() {
     var directive = form($scope);
     $httpBackend.flush();
     var button = directive.find('button');
-    expect(button.text()).toEqual('Make ns Pedalbike');
+    expect(button.text()).toEqual('Make Pedalbike');
+  });
+
+  it('should create a pedal list', function() {
+    $httpBackend.expectGET('/templates/pedals/directives/pedal-list-item.html')
+      .respond(200, pedalListItem);
+
+    $scope.pedal = {
+      model: 'Merckx EM525',
+      gears: 20,
+      frameType: 'Carbon',
+      maxSpeed: 40
+    };
+
+    var list = $compile('<section data-ng-controller="PedalController as pedalctrl"><pedal-list-item data-pedal="pedal"></pedal-list-item></section>'); // eslint-disable-line max-len
+    var directive = list($scope);
+    $httpBackend.flush();
+    var span = directive.find('span');
+    expect(span.text()).toEqual('');
   });
 });
