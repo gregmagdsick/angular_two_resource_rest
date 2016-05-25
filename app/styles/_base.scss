@@ -1,5 +1,10 @@
 @import "globals";
 
+@mixin border($radious, $color) {
+  border-radius: $radius;
+  border-color: $color;
+}
+
 main {
   background-color: $background;
   color: $feltRed;
@@ -11,11 +16,10 @@ h2 {
 }
 
 button {
-  border-radius: 7px;
-  border-color: $textColor;
   font-size: 0.6em;
   font-family: $subFont;
   font-weight: bold;
   background-color: $background;
   color: $feltRed;
+  @include border(7px, $textColor);
 }
