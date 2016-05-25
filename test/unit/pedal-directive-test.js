@@ -17,7 +17,7 @@ describe('pedal directive', function() {
   }));
 
   it('should create a pedal form', function() {
-    $httpBackend.expectGET('/templates/pedals/directives/pedal-form.html')
+    $httpBackend.expectGET('templates/pedals/directives/pedal-form.html')
       .respond(200, pedalForm);
 
     var form = $compile('<section data-ng-controller="PedalController as pedalctrl"><pedal-form data-button-text="Make Pedalbike"></pedal-form></section>'); // eslint-disable-line max-len
@@ -42,6 +42,6 @@ describe('pedal directive', function() {
     var directive = list($scope);
     $httpBackend.flush();
     var span = directive.find('span');
-    expect(span.text()).toEqual('');
+    expect(span.text()).toEqual('The Merckx EM525 has: 20 gears, Carbon frame and a max speed of 40 MPH'); // eslint-disable-line max-len
   });
 });

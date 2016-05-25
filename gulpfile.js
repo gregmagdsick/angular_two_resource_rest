@@ -51,7 +51,7 @@ gulp.task('webpack:unitTest', () => {
         ]
       }
     }))
-    .pipe(gulp.dest('./test'));
+    .pipe(gulp.dest('./test/unit'));
 });
 
 gulp.task('karmaTest', (done) => {
