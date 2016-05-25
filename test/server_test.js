@@ -31,7 +31,8 @@ describe('Two Resource Test', () => {
       done();
     });
   });
-  it('pedal GET route works', (done) => {
+  it('pedal GET route works', function(done) {
+    this.timeout(3000);
     request('localhost:5050')
     .get('/api/pedal')
     .end((err, res) => {
@@ -58,7 +59,7 @@ describe('Two Resource Test', () => {
     .end((err, res) => {
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.contain('POST to pedal successful');
+      expect(res.text).to.contain('Cervello_S2');
       done();
       });
     });
@@ -69,7 +70,7 @@ describe('Two Resource Test', () => {
     .end((err, res) => {
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.contain('POST to motor successful');
+      expect(res.text).to.contain('Suzuki_GSXR_750');
       done();
     });
   });
@@ -114,7 +115,7 @@ describe('Two Resource Test', () => {
     .end((err, res) => {
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.eql('Deletion Successful');
+      expect(res.text).to.contain('Deletion Successful');
       done();
     });
   });
@@ -124,7 +125,7 @@ describe('Two Resource Test', () => {
     .end((err, res) => {
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.eql('Deletion Successful');
+      expect(res.text).to.contain('Deletion Successful');
       done();
     });
   });

@@ -33,12 +33,10 @@ module.exports = function(app) {
     };
 
     this.backup = (pedal) => {
-      debugger;
       pedal.backup = angular.copy(pedal);
     };
 
     this.restoreBackup = (pedal) => {
-      debugger;
       angular.copy(pedal.backup, pedal);
     };
 
