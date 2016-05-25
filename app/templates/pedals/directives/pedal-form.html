@@ -1,0 +1,16 @@
+<form data-ng-submit="save(pedal)">
+  <label for="model">Model
+    <input type="text" name="model" data-ng-model="pedal.model">
+  </label>
+  <label for="gears">Number of Gears
+    <input type="number" name="gears" data-ng-model="pedal.gears">
+  </label>
+  <label for="frameType">Frame Type
+    <input type="text" name="frameType" data-ng-model="pedal.frameType">
+  </label>
+  <label for="maxSpeed">Max Speed in MPH
+    <input type="number" name="maxSpeed" data-ng-model="pedal.maxSpeed">
+  </label>
+  <button type="Submit">{{buttonText}}</button>
+  <ng-transclude></ng-transclude>
+</form>
