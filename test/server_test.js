@@ -32,7 +32,7 @@ describe('Two Resource Test', () => {
     });
   });
   it('pedal GET route works', function(done) {
-    this.timeout(3000);
+    this.timeout(4000);
     request('localhost:5050')
     .get('/api/pedal')
     .end((err, res) => {
