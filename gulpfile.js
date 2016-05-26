@@ -28,8 +28,8 @@ gulp.task('watch', () => {
 gulp.task('webpack:dev', ['html:dev', 'scss:dev'], () => {
   return gulp.src('app/js/entry.js')
     .pipe(webpack({
+      devtool: 'source-map',
       output: {
-        devtool: 'source-map',
         filename: 'bundle.js'
       }
     }))
