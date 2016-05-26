@@ -3,3 +3,4 @@ require('../../app/js/entry');
 require('./pedal-directive-test');
 // require('./motor-controller-test');
 // require('./motor-directive-test');
+require('./gm-handle-error-test.js');

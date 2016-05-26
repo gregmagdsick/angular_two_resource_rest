@@ -8,7 +8,8 @@ const KarmaServer = require('karma').Server;
 const sass = require('gulp-sass');
 const sourceMaps = require('gulp-sourcemaps');
 
-const scripts = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*_test.js', 'models/*.js'];
+const scripts = ['index.js', 'gulpfile.js', 'lib/*.js',
+'test/*-test.js', 'models/*.js', 'app/**/*.js'];
 
 gulp.task('lint', () => {
   return gulp.src(scripts)
@@ -22,11 +23,11 @@ gulp.task('server:test', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(scripts, ['lint', 'test']);
+  return gulp.watch(scripts, ['lint', 'test']);
 });
 
 gulp.task('webpack:dev', ['html:dev', 'scss:dev'], () => {
-  gulp.src('app/js/entry.js')
+  return gulp.src('app/js/entry.js')
     .pipe(webpack({
       output: {
         devtool: 'source-map',
@@ -37,7 +38,7 @@ gulp.task('webpack:dev', ['html:dev', 'scss:dev'], () => {
 });
 
 gulp.task('webpack:unitTest', () => {
-  gulp.src('test/unit/test_entry.js')
+  return gulp.src('test/unit/test_entry.js')
     .pipe(webpack({
       devtool: 'source-map',
       output: {
@@ -52,11 +53,11 @@ gulp.task('webpack:unitTest', () => {
         ]
       }
     }))
-    .pipe(gulp.dest('./test'));
+    .pipe(gulp.dest('./test/unit'));
 });
 
 gulp.task('karmaTest', (done) => {
-  new KarmaServer({
+  return new KarmaServer({
     configfile: __dirname + './karma.conf.js'
   }, done).start();
 });
@@ -74,6 +75,6 @@ gulp.task('scss:dev', () => {
     .pipe(gulp.dest('./build/styles'));
 });
 
-gulp.task('unitTest', ['webpack:unitTest', 'karmaTest']);
+gulp.task('client:test', ['webpack:unitTest']);
 gulp.task('build', ['webpack:dev']);
-gulp.task('test', ['lint', 'server:test']);
+gulp.task('test', ['lint', 'server:test', 'client:test']);

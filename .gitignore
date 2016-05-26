@@ -3,3 +3,4 @@ npm-debug.log
 db/*
 .env
 build/
+bundle.j*

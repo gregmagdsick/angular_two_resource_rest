@@ -17,6 +17,7 @@ describe('pedal directive', function() { //  eslint-disable-line prefer-arrow-ca
     $scope = $rootScope.$new();
   }));
 
+
   it('should create a pedal form', function() { //  eslint-disable-line prefer-arrow-callback
     $httpBackend.expectGET('/templates/pedals/directives/pedal-form.html')
       .respond(200, pedalForm);
@@ -43,6 +44,6 @@ describe('pedal directive', function() { //  eslint-disable-line prefer-arrow-ca
     var directive = list($scope);
     $httpBackend.flush();
     var span = directive.find('span');
-    expect(span.text()).toEqual('');
+    expect(span.text()).toEqual('The Merckx EM525 has: 20 gears, Carbon frame and a max speed of 40 MPH'); // eslint-disable-line max-len
   });
 });

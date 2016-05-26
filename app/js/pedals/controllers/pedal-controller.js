@@ -1,14 +1,13 @@
-const handleError = require('../../lib/').handleError;
 const baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('PedalController', ['$http', function($http) {
+  app.controller('PedalController', ['$http', 'gmHandleError', function($http, gmHandleError) {
     this.pedals = [];
     this.getAll = () => {
       $http.get(baseUrl + '/api/pedal')
       .then((res) => {
         this.pedals = res.data;
-      }, handleError.bind(this));
+      }, gmHandleError(this.errors, 'Could not get pedalbikes from server').bind(this));
     };
 
     this.createPedal = () => {
@@ -16,30 +15,28 @@ module.exports = function(app) {
       .then((res) => {
         this.pedals.push(res.data);
         this.newPedal = null;
-      }, handleError.bind(this));
+      }, gmHandleError(this.errors, 'Could not save new pedalbike').bind(this));
     };
 
     this.updatePedal = (pedal) => {
       $http.put(baseUrl + '/api/pedal/' + pedal.model, pedal)
       .then(() => {
         pedal.editing = false;
-      }, handleError.bind(this));
+      }, gmHandleError(this.errors, 'Could not update pedalbike: ' + pedal.model).bind(this));
     };
 
     this.removePedal = (pedal) => {
       $http.delete(baseUrl + '/api/pedal/' + pedal.model)
       .then(() => {
         this.pedals.splice(this.pedals.indexOf(pedal), 1);
-      }, handleError.bind(this));
+      }, gmHandleError(this.errors, 'Cold not delete pedalbike: ' + pedal.model).bind(this));
     };
 
     this.backup = (pedal) => {
-      debugger;
       pedal.backup = angular.copy(pedal);
     };
 
     this.restoreBackup = (pedal) => {
-      debugger;
       angular.copy(pedal.backup, pedal);
     };
 
