@@ -3,21 +3,23 @@ require('angular-mocks');
 const pedalForm = require('../../app/templates/pedals/directives/pedal-form.html');
 const pedalListItem = require('../../app/templates/pedals/directives/pedal-list-item.html');
 
-describe('pedal directive', function() {
+describe('pedal directive', function() { //  eslint-disable-line prefer-arrow-callback
   beforeEach(angular.mock.module('bikeApp'));
 
   var $httpBackend;
   var $compile;
   var $scope;
 
+//  eslint-disable-next-line prefer-arrow-callback
   beforeEach(angular.mock.inject(function(_$compile_, $rootScope, _$httpBackend_) {
     $httpBackend = _$httpBackend_;
     $compile = _$compile_;
     $scope = $rootScope.$new();
   }));
 
-  it('should create a pedal form', function() {
-    $httpBackend.expectGET('templates/pedals/directives/pedal-form.html')
+
+  it('should create a pedal form', function() { //  eslint-disable-line prefer-arrow-callback
+    $httpBackend.expectGET('/templates/pedals/directives/pedal-form.html')
       .respond(200, pedalForm);
 
     var form = $compile('<section data-ng-controller="PedalController as pedalctrl"><pedal-form data-button-text="Make Pedalbike"></pedal-form></section>'); // eslint-disable-line max-len
@@ -27,7 +29,7 @@ describe('pedal directive', function() {
     expect(button.text()).toEqual('Make Pedalbike');
   });
 
-  it('should create a pedal list', function() {
+  it('should create a pedal list', function() { //  eslint-disable-line prefer-arrow-callback
     $httpBackend.expectGET('/templates/pedals/directives/pedal-list-item.html')
       .respond(200, pedalListItem);
 

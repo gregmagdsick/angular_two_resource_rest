@@ -6,6 +6,7 @@ const mocha = require('gulp-mocha');
 const webpack = require('webpack-stream');
 const KarmaServer = require('karma').Server;
 const sass = require('gulp-sass');
+const sourceMaps = require('gulp-sourcemaps');
 
 const scripts = ['index.js', 'gulpfile.js', 'lib/*.js',
 'test/*-test.js', 'models/*.js', 'app/**/*.js'];
@@ -68,7 +69,9 @@ gulp.task('html:dev', () => {
 
 gulp.task('scss:dev', () => {
   return gulp.src('app/styles/main.scss')
+    .pipe(sourceMaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourceMaps.write('./'))
     .pipe(gulp.dest('./build/styles'));
 });
 
