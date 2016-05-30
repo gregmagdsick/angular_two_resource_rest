@@ -19,7 +19,7 @@ describe('pedal directive', function() { //  eslint-disable-line prefer-arrow-ca
 
 
   it('should create a pedal form', function() { //  eslint-disable-line prefer-arrow-callback
-    $httpBackend.expectGET('/templates/pedals/directives/pedal-form.html')
+    $httpBackend.expectGET('templates/pedals/directives/pedal-form.html')
       .respond(200, pedalForm);
 
     var form = $compile('<section data-ng-controller="PedalController as pedalctrl"><pedal-form data-button-text="Make Pedalbike"></pedal-form></section>'); // eslint-disable-line max-len

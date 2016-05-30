@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.directive('motorListItem', function() {
+  app.directive('motorListItem', function() { // eslint-disable-line prefer-arrow-callback
     return {
       restrict: 'EAC',
       replace: true,

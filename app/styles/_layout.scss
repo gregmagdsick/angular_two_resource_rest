@@ -1,8 +1,9 @@
 @import "globals";
 
 form {
-  font-size: 1em;
+  font-size: $normalFontSize*1.4;
   input {
-    max-width: 50px;
+    max-width: 150px;
+    width: percent-width(150, 900)
   }
 }

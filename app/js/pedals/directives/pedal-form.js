@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  app.directive('pedalForm', function() {
+  app.directive('pedalForm', function() { // eslint-disable-line prefer-arrow-callback
     return {
       restrict: 'EAC',
       require: '^ngController',

@@ -1,13 +1,16 @@
 @import "globals";
 
+
 li {
-  font-family: $subFont;
+  font: #{$normalFontSize} #{$subFont};
   color: $textColor;
   background-color: $feltYellow;
 }
 
 form {
-  max-width: 250px;
+  @extend li;
+  background-color: grayscale($feltYellow);
+  width: percent-width(250, 960);
   position: relative;
   button {
     text-align: right;

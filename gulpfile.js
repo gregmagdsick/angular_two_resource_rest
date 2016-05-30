@@ -29,8 +29,8 @@ gulp.task('watch', () => {
 gulp.task('webpack:dev', ['html:dev', 'scss:dev'], () => {
   return gulp.src('app/js/entry.js')
     .pipe(webpack({
+      devtool: 'source-map',
       output: {
-        devtool: 'source-map',
         filename: 'bundle.js'
       }
     }))
@@ -57,7 +57,7 @@ gulp.task('webpack:unitTest', () => {
 });
 
 gulp.task('karmaTest', (done) => {
-  return new KarmaServer({
+  new KarmaServer({
     configfile: __dirname + './karma.conf.js'
   }, done).start();
 });
