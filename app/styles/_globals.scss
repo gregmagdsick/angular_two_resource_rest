@@ -8,5 +8,11 @@ $feltYellow: #FFFC19;
 $font: 'Roboto', sans-serif;
 $subFont: 'Ubuntu Mono';
 
+$normalFontSize: .7em;
+
 $radius: 7px;
 $color: #FFFFFF;
+
+@function percent-width($inner, $outer) {
+  @return ($inner/ $outer) * 100%;
+}
