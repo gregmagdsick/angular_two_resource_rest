@@ -1,20 +1,21 @@
 const baseUrl = require('../../config').baseUrl;
 
 module.exports = function(app) {
-  app.controller('PedalController', ['$http', 'gmHandleError', function($http, gmHandleError) {
-    this.pedals = [];
+  app.controller('PedalController', ['$http', 'gmHandleError', 'gmCounter', function($http, gmHandleError, gmCounter) { // eslint-disable-line max-len
+    this.gmCounter = gmCounter;
+    this.pedals = this.gmCounter.pedalBikes;
     this.getAll = () => {
       $http.get(baseUrl + '/api/pedal')
       .then((res) => {
-        this.pedals = res.data;
+        this.pedals = this.gmCounter.pedalBikes = res.data;
       }, gmHandleError(this.errors, 'Could not get pedalbikes from server').bind(this));
     };
 
     this.createPedal = () => {
       $http.post(baseUrl + '/api/pedal', this.newPedal)
       .then((res) => {
-        this.pedals.push(res.data);
         this.newPedal = null;
+        this.gmCounter.addPedal(res.data);
       }, gmHandleError(this.errors, 'Could not save new pedalbike').bind(this));
     };
 
@@ -28,7 +29,7 @@ module.exports = function(app) {
     this.removePedal = (pedal) => {
       $http.delete(baseUrl + '/api/pedal/' + pedal.model)
       .then(() => {
-        this.pedals.splice(this.pedals.indexOf(pedal), 1);
+        this.gmCounter.pedalBikes.splice(this.gmCounter.pedalBikes.indexOf(pedal), 1);
       }, gmHandleError(this.errors, 'Cold not delete pedalbike: ' + pedal.model).bind(this));
     };
 
