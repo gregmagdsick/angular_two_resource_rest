@@ -17,6 +17,7 @@
               data-action="create"
               data-pedal="pedalctrl.newPedal">
             </pedal-form>
+          <p>Total number of bikes: {{ pedalctrl.gmCounter.checkTotal() }}</p>
           <h2>Current Pedalbikes</h2>
           <ul id="pedalList">
             <pedal-list-item data-ng-repeat="pedal in pedalctrl.pedals" data-pedal="pedal">
