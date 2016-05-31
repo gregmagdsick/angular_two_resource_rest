@@ -39,6 +39,7 @@
             data-action="create"
             data-motor="motorctrl.newMotor">
           </motor-form>
+          <p>Total number of bikes: {{ motorctrl.gmCounter.checkTotal() }}</p>
           <h2>Current Motorbikes</h2>
           <ul id="motorList">
             <motor-list-item data-ng-repeat="motor in motorctrl.motors" data-motor="motor">
