@@ -15,7 +15,6 @@ module.exports = function(app) {
       $http.post(baseUrl + '/api/pedal', this.newPedal)
       .then((res) => {
         this.newPedal = null;
-        this.pedals.push(res.data);
         this.gmCounter.addPedal(res.data);
       }, gmHandleError(this.errors, 'Could not save new pedalbike').bind(this));
     };

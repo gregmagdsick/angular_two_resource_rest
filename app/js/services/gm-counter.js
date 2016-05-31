@@ -3,8 +3,7 @@ module.exports = function(app) {
     return {
       pedalBikes: [],
       motorBikes: [],
-      totalBikesCount: 0,
-      addBike: function(newBike) {
+      addPedal: function(newBike) {
         this.pedalBikes.push(newBike);
       },
       addMotor: function(newMotor) {

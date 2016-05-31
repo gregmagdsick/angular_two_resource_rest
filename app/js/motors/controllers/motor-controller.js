@@ -15,7 +15,6 @@ module.exports = function(app) {
       $http.post(baseUrl + '/api/motor', this.newMotor)
       .then((res) => {
         this.newMotor = null;
-        this.motors.push(res.data);
         this.gmCounter.addMotor(res.data);
       }, gmHandleError(this.errors, 'Could not save new motorbike').bind(this));
     };
