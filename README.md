@@ -13,14 +13,11 @@ to build the web client, type:
 ```
 
 ## To test
-To build the tests and run the server-side tests, in your command line prompt type:
+To build the tests and run the server-side and client-side tests, in your command line prompt type:
 ```bash
 >gulp test
 ```
-Then to run the client unit tests, in your command line prompt type:
-```bash
->karma start
-```
+
 
 
 ## To run

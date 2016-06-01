@@ -7,6 +7,7 @@ const webpack = require('webpack-stream');
 const KarmaServer = require('karma').Server;
 const sass = require('gulp-sass');
 const sourceMaps = require('gulp-sourcemaps');
+const run = require('run-sequence');
 
 const scripts = ['index.js', 'gulpfile.js', 'lib/*.js',
 'test/*-test.js', 'models/*.js', 'app/**/*.js'];
@@ -58,7 +59,7 @@ gulp.task('webpack:unitTest', () => {
 
 gulp.task('karmaTest', (done) => {
   new KarmaServer({
-    configfile: __dirname + './karma.conf.js'
+    configFile: __dirname + '/karma.conf.js'
   }, done).start();
 });
 
@@ -75,6 +76,8 @@ gulp.task('scss:dev', () => {
     .pipe(gulp.dest('./build/styles'));
 });
 
-gulp.task('client:test', ['webpack:unitTest']);
+gulp.task('client:test', (callback) => {
+  run('webpack:unitTest', 'karmaTest', callback);
+});
 gulp.task('build', ['webpack:dev']);
 gulp.task('test', ['lint', 'server:test', 'client:test']);
