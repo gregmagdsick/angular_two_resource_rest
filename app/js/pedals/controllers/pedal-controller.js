@@ -29,6 +29,7 @@ module.exports = function(app) {
     this.removePedal = (pedal) => {
       $http.delete(baseUrl + '/api/pedal/' + pedal.model)
       .then(() => {
+        this.pedals.splice(this.pedals.indexOf(pedal), 1);
         this.gmCounter.pedalBikes.splice(this.gmCounter.pedalBikes.indexOf(pedal), 1);
       }, gmHandleError(this.errors, 'Cold not delete pedalbike: ' + pedal.model).bind(this));
     };
