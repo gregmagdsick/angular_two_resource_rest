@@ -54,7 +54,7 @@ describe('Pedal Controller Testing', function() { // eslint-disable-line prefer-
 
   it('should use DELETE to remove a bike', function() { // eslint-disable-line prefer-arrow-callback
     $httpBackend.expectDELETE(testUrl + '/Masi').respond(200);
-    pedalctrl.pedals = [{ model: 'Masi', frame: 'italian steel', editing: 'true' }];
+    pedalctrl.pedals = [{ model: 'Masi', frame: 'italian steel' }];
     pedalctrl.removePedal(pedalctrl.pedals[0]);
     $httpBackend.flush();
     expect(pedalctrl.pedals.length).toBe(0);

@@ -29,6 +29,7 @@ module.exports = function(app) {
     this.removeMotor = (motor) => {
       $http.delete(baseUrl + '/api/motor/' + motor.model, motor)
       .then(() => {
+        this.motors.splice(this.motors.indexOf(motor), 1);
         this.gmCounter.motorBikes.splice(this.gmCounter.motorBikes.indexOf(motor), 1);
       }, gmHandleError(this.errors, 'Could not delete motorbike: ' + motor.model).bind(this));
     };
